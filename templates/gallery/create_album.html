@@ -1,0 +1,23 @@
+{% extends  'registration/base_accounts.html' %}
+{% load crispy_forms_filters %}
+{% block title %}
+    Добавить альбом
+{% endblock %}
+{% block main %}
+    {% if not user.is_authenticated %}
+        <p> Для создания альбомов нужно авторизоваться</p>
+        <a href="/login">Войти</a>.<br/><br/>
+    {% else %}
+    <div class="card">
+    <div class="card-body">
+    <h4 class="card-title">Создать альбом</h4>
+        <form method="post">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <a class="related-widget-wrapper-link add-related" href="/create_image" title="Добавить изображение"><img src="/static/admin/img/icon-addlink.svg" alt="Add"></a>
+            <button type="submit" class="btn btn-primary btn-block">Создать</button>
+        </form>
+    </div>
+    </div>
+    {% endif %}
+{% endblock %}

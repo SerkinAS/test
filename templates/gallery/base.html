@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/style.css'%}"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css" integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
+
+</head>
+
+<div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
+  <h5 class="my-0 mr-md-auto font-weight-normal">Главная страница</h5>
+  <nav class="my-2 my-md-0 mr-md-3">
+    <a class="p-2 text-dark" href="/">Главная</a>
+    <a class="p-2 text-dark" href="/about_me">Обо мне</a>
+    <a class="p-2 text-dark" methods="post" href="/create_album">Создать альбом</a>
+      <a class="p-2 text-dark" methods="post" href="/create_image">Создать изображение</a>
+  </nav>
+  {% block button %}{% endblock %}
+</div>
+
+
+<div class="container">
+
+      {% block content %}
+
+      {% endblock %}
+
+</div>
+<div class="container">
+{% if context.is_page %}
+<nav aria-label="...">
+  <ul class="pagination">
+    <li class="page-item {% if not context.prev_url %} disabled {% endif %}">
+      <a class="page-link" href = "{{ context.prev_url }}">Previous</a>
+    </li>
+
+      {% for n in context.page.paginator.page_range %}
+          {% if context.page.number == n %}
+
+              <li class="page-item active">
+                    <a class="page-link" href="?page={{ n }}">{{ n }}</a>
+              </li>
+          {% elif n > context.page.number|add:-3 and n < context.page.number|add:3  %}
+              <li class="page-item">
+                <a class="page-link" href="?page={{ n }}">{{ n }}</a>
+              </li>
+          {% endif %}
+
+      {% endfor %}
+    <li class="page-item {% if not context.next_url %} disabled {% endif %}">
+      <a class="page-link" href="{{ context.next_url }}">Next</a>
+    </li>
+  </ul>
+</nav>
+{% endif %}
+
+
+</div>
+</html>

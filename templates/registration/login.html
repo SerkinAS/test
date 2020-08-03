@@ -1,0 +1,27 @@
+{% extends  'registration/base_accounts.html' %}
+{% load crispy_forms_tags %}
+{% block title %}
+    Вход
+{% endblock %}
+{% block main %}
+    {% if user.is_authenticated %}
+        <p>{{ user.username }}, Вы же уже авторизорваны. </p>
+        Впрочем, всегда можно <a href="/logout">Выйти</a>.<br/><br/>
+    {% else %}
+<div class="card">
+<div class="card-body">
+<h4 class="card-title">Войдите в свой аккаунт</h4>
+
+<form method="post">
+{% csrf_token %}
+{{ form|crispy }}
+
+<button type="submit" class="btn btn-primary btn-block">Войти</button>
+    <a href="/"></a><br>
+<p>Если Вы ещё не зарегистрированы, то сделайте это
+    <a href="/register"> сейчас</a> </p>
+</form>
+</div>
+</div>
+    {% endif %}
+{% endblock %}

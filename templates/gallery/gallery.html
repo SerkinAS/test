@@ -1,0 +1,43 @@
+{% extends 'gallery/base.html' %}
+{% load static %}
+{% block title %}
+Галерея
+{% endblock %}
+
+{% block button %}
+    {% if user.is_authenticated %}
+        <a class="btn btn-outline-primary" href="/logout">Выход</a>
+    {% else %}
+        <a class="btn btn-outline-primary" href="/login">Вход</a>
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+
+        <div class="container">
+                {% if albums %}
+                    {% for i in albums %}
+                        <div id="gallery" class="lb-image">
+                        <a href="{% url 'album_view' pk=i.id %}">{{ i.album_title}}</a><br>
+                        {% if i.album_image %}
+                            {% for k in i.album_image.all %}
+                            <figure class="photo">
+                                <a href="{{ k.img.url }}" data-lightbox="roadtrip"
+                                   data-title="{{ k.title }}">
+                                    <img src="{{ k.img.url }}" alt="{{ k.title }}">
+                                </a>
+                                <figcaption>{{ k.title }} </figcaption>
+                            </figure>
+                            {% endfor %}
+                        {% else %}
+                            Нет фотографий
+                        {% endif %}
+                        </div>
+
+                    {% endfor %}
+                {% else %}
+                    Нет альбомов
+                {% endif %}
+        </div>
+
+{% endblock %}

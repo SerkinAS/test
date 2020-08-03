@@ -1,0 +1,22 @@
+{% extends  'registration/base_accounts.html' %}
+{% load crispy_forms_filters %}
+{% block title %}
+    Редакция изображений
+{% endblock %}
+{% block main %}
+    {% if not user.is_authenticated %}
+        <p> Для редактирования фотографий нужно авторизоваться</p>
+        <a href="/login">Войти</a>.<br/><br/>
+    {% else %}
+    <div class="card">
+    <div class="card-body">
+    <h4 class="card-title">Редактировать изображение</h4>
+        <form enctype="multipart/form-data" method="post">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <button type="submit" class="btn btn-primary btn-block">Редактировать</button>
+        </form>
+    </div>
+    </div>
+    {% endif %}
+{% endblock %}

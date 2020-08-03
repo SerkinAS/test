@@ -1,0 +1,22 @@
+{% extends 'gallery/base.html' %}
+{% load static %}
+
+{% block title %}
+Обо мне
+{% endblock %}
+
+{% block button %}
+    {% if user.is_authenticated %}
+        <a class="btn btn-outline-primary" href="/logout">Выход</a>
+    {% else %}
+        <a class="btn btn-outline-primary" href="/login">Вход</a>
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    <h> О себе: </h><br>
+ <a  href="https://vk.com/id75591452"> <h>Серкин Алексей Сергеевич</h></a><br>
+    <h> Телефон: 89270992162</h><br>
+    <h> Email: leha_serkin@mail.ru</h>
+
+{% endblock %}
