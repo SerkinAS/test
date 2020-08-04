@@ -21,13 +21,13 @@
                         <a href="{% url 'album_view' pk=i.id %}">{{ i.album_title}}</a><br>
                         {% if i.album_image %}
                             {% for k in i.album_image.all %}
-                            <figure class="photo">
+                            <div class="photo">
                                 <a href="{{ k.img.url }}" data-lightbox="roadtrip"
                                    data-title="{{ k.title }}">
                                     <img src="{{ k.img.url }}" alt="{{ k.title }}">
                                 </a>
                                 <figcaption>{{ k.title }} </figcaption>
-                            </figure>
+                            </div>
                             {% endfor %}
                         {% else %}
                             Нет фотографий

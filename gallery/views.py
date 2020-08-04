@@ -14,7 +14,7 @@ def gallery(request):
     # page = paginator.get_page(page_value)
     # is_page = page.has_other_pages()
     # if page.has_previous():
-    #     prev_url = '?page={}'.format(page.previous_page_number())
+    #     prev_url = 'page={}'.format(page.previous_page_number())
     # else:
     #     prev_url = ''
     #
