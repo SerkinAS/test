@@ -13,31 +13,69 @@
 {% endblock %}
 
 {% block content %}
+    <script>
+        $(document).ready(function () {
+            $("a").click(function () {
+                var elementClick = $(this).attr("href");
+                var destination = $(elementClick).offset().top;
+                if ($.browser.safari) {
+                    $('body').animate({scrollTop: destination}, 1100); //1100 - скорость
+                } else {
+                    $('html').animate({scrollTop: destination}, 1100);
+                }
+                return false;
+            });
+        });
+    </script>
+    <div class="navigation">
+    <nav>
+        <a href="#">В начало </a><br>
+        {% for a in albums %}
+           <a href="#album{{ a.id }}"> {{ a.album_title }} </a><br>
+        {% endfor %}
+    </nav>
+    </div>
+    <style>
+    .navigation nav{
+    position: fixed; /* Фиксированное положение */
+    left: 24px; /* Расстояние от правого края окна браузера */
+    top: 8%; /* Расстояние сверху */
+    padding: 10px; /* Поля вокруг текста */
+    background: rgba(255, 255, 255, 0); /* Цвет фона */
+    border: 1px solid #000000; /* Параметры рамки */
+    display: inline;
+}
+    .navigation nav a{
+        color: black;
+    }</style>
 
-        <div class="container">
-                {% if albums %}
-                    {% for i in albums %}
-                        <div id="gallery" class="lb-image">
-                        <a href="{% url 'album_view' pk=i.id %}">{{ i.album_title}}</a><br>
+    <div class="container">
+        {% if albums %}
+            {% for i in albums %}
+                <div id="gallery" class="lb-image">
+                    <div id="album{{ i.id }}">
+                        <a href="{% url 'album_view' pk=i.id %}">{{ i.album_title }}</a><br>
                         {% if i.album_image %}
                             {% for k in i.album_image.all %}
-                            <div class="photo">
-                                <a href="{{ k.img.url }}" data-lightbox="roadtrip"
-                                   data-title="{{ k.title }}">
-                                    <img src="{{ k.img.url }}" alt="{{ k.title }}">
-                                </a>
-                                <figcaption>{{ k.title }} </figcaption>
-                            </div>
+                                <div class="photo">
+                                    <a href="{{ k.img.url }}" data-lightbox="roadtrip"
+                                       data-title="{{ k.title }}">
+                                        <img src="{{ k.img.url }}" alt="{{ k.title }}">
+                                    </a>
+                                    <figcaption>{{ k.title }} </figcaption>
+                                </div>
                             {% endfor %}
                         {% else %}
                             Нет фотографий
                         {% endif %}
-                        </div>
+                    </div>
+                </div>
 
-                    {% endfor %}
-                {% else %}
-                    Нет альбомов
-                {% endif %}
-        </div>
+            {% endfor %}
+        {% else %}
+            Нет альбомов
+        {% endif %}
+
+    </div>
 
 {% endblock %}

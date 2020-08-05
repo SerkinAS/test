@@ -61,10 +61,7 @@ def create_image(request):
 
 def edit_image(request, pk):
     image = Image.objects.get(id=pk)
-    print(type(image.img))
     if request.method == "POST":
-        if 'img' in request.POST:
-            request.FILES['img'] = image.img
         form = ImageForm(request.POST, request.FILES)
         if form.is_valid():
             image.title = form.cleaned_data['title']
